@@ -41,8 +41,20 @@ const dummyData = [
     page: 1,
 
     streamLink:
-      "https://dogus.daioncdn.net/dmax/dmax_720p.m3u8?sid=4km737syfwoo&app=5a02c599-d17e-4982-9b04-090934d51af7&ce=3",
+      "https://ciner-live.ercdn.net/haberturk/playlist.m3u8?e=1658267010&st=afsM_G-0DRhfWhL9LbLVDg&tv=1",
     listkey: "haberturk",
+  },
+  {
+    id: 4,
+    img: "https://ecanlitvizle.sitecozum.net/logo/bloomberg-ht-izle.png",
+    title: "Bloomberg Tv",
+    hdr: true,
+    dvr: true,
+    page: 1,
+
+    streamLink:
+      "https://ciner.daioncdn.net/bloomberght/bloomberght_480p.m3u8?ex=1649424566&st=4Y790MeXScF5LDOhVNykUQ&tv=1&sid=4km628p5r3dc&app=201b9556-b11c-4d92-b264-f21fd24e9aaf&ce=3",
+    listKey: "bloomberg_ht",
   },
   // news
   {
@@ -67,46 +79,21 @@ const dummyData = [
     page: 1,
 
     streamLink:
-      "https://tv-e-okul00.medya.trt.com.tr/master.m3u8",
+      "https://trkvz-live.ercdn.net/a2tv/a2tv_480p.m3u8?st=vDFddLpKckTjTdTFdGNEDQ&e=1658304395&SessionID=gzc5wonvie3y35qcyczioylr&StreamGroup=canli-yayin&Site=&DeviceGroup=web&referrerSiteId=0fe2a405-8afa-4238-b429-e5f96aec3a5c",
     listKey: "a2tv",
   },
+
+  {
+    id: 7,
+    img: "https://ecanlitvizle.sitecozum.net/logo/a-haber-canli.png",
+    title: "AHaber",
+    hdr: true,
+    dvr: false,
+    page: 1,
+
+    streamLink:
+      "https://trkvz-live.ercdn.net/ahaberhd/ahaberhd_480p.m3u8?st=y9_9xU7Gc9p5P250uxIB4w&e=1658304853&SessionID=ywthyerafetd050e2opn52a4&StreamGroup=canli-yayin&Site=ahaber&DeviceGroup=web",
+
+    listKey: "ahaber",
+  },
 ];
-
-// heroku sunucu
-// var mysql = require("mysql");
-// var con = mysql.createConnection({
-//   host: "us-cdbr-east-06.cleardb.net",
-//   user: "bf8f8d03d8d15e",
-//   password: "63538602",
-//   database: "heroku_c20e16b2bea37d4",
-// });
-
-// sunucu
-// var con = mysql.createConnection({
-//   host: "127.0.0.1",
-//   user: "root",
-//   password: "Alomalo55.800",
-//   database: "uyanik",
-// });
-
-// local
-var mysql = require("mysql");
-var con = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: "uyanik",
-});
-
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-  dummyData.forEach((channel) => {
-    const { id, title, img, hdr, dvr, streamLink } = channel;
-    var sql = `INSERT INTO channels (title, img, hdr, dvr, streamLink) VALUES (?,?,?,?,?)`;
-    con.query(sql, [title, img, hdr, dvr, streamLink], function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });
-  });
-});
