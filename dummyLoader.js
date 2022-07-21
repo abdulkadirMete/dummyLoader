@@ -1,3 +1,5 @@
+var mysql = require("mysql");
+
 const dummyData = [
   {
     id: 0,
@@ -7,7 +9,7 @@ const dummyData = [
     dvr: false,
     page: 1,
     streamLink: "https://tv-e-okul00.medya.trt.com.tr/master.m3u8",
-    listKey: "trteba_ilkokul",
+    guideKey: "trteba_ilkokul",
   },
   {
     id: 1,
@@ -18,7 +20,7 @@ const dummyData = [
     page: 1,
     streamLink:
       "https://dogus.daioncdn.net/dmax/dmax_720p.m3u8?sid=4km737syfwoo&app=5a02c599-d17e-4982-9b04-090934d51af7&ce=3",
-    listkey: "dmax",
+    guideKey: "dmax",
   },
   {
     id: 2,
@@ -29,7 +31,7 @@ const dummyData = [
 
     dvr: false,
     streamLink: "http://tv-trtbelgesel.live.trt.com.tr/master.m3u8",
-    listKey: "trtbel",
+    guideKey: "trtbel",
   },
 
   {
@@ -42,7 +44,7 @@ const dummyData = [
 
     streamLink:
       "https://dogus.daioncdn.net/dmax/dmax_720p.m3u8?sid=4km737syfwoo&app=5a02c599-d17e-4982-9b04-090934d51af7&ce=3",
-    listkey: "haberturk",
+    guideKey: "haberturk",
   },
   // news
   {
@@ -55,7 +57,7 @@ const dummyData = [
 
     streamLink:
       "https://mn-nl.mncdn.com/kanal24/smil:kanal24.smil/chunklist_b396000.m3u8",
-    listKey: "24_tr",
+    guideKey: "24_tr",
   },
 
   {
@@ -66,9 +68,8 @@ const dummyData = [
     dvr: false,
     page: 1,
 
-    streamLink:
-      "https://tv-e-okul00.medya.trt.com.tr/master.m3u8",
-    listKey: "a2tv",
+    streamLink: "https://tv-e-okul00.medya.trt.com.tr/master.m3u8",
+    guideKey: "a2tv",
   },
 ];
 
@@ -82,31 +83,35 @@ const dummyData = [
 // });
 
 // sunucu
-// var con = mysql.createConnection({
-//   host: "127.0.0.1",
-//   user: "root",
-//   password: "Alomalo55.800",
-//   database: "uyanik",
-// });
-
-// local
-var mysql = require("mysql");
 var con = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "",
+  password: "Alomalo55.800",
   database: "uyanik",
 });
+
+// local
+// var mysql = require("mysql");
+// var con = mysql.createConnection({
+//   host: "127.0.0.1",
+//   user: "root",
+//   password: "",
+//   database: "uyanik",
+// });
 
 con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
   dummyData.forEach((channel) => {
-    const { id, title, img, hdr, dvr, streamLink } = channel;
-    var sql = `INSERT INTO channels (title, img, hdr, dvr, streamLink) VALUES (?,?,?,?,?)`;
-    con.query(sql, [title, img, hdr, dvr, streamLink], function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });
+    const { id, title, img, guideKey, hdr, dvr, streamLink } = channel;
+    var sql = `INSERT INTO channels (title, img,guideKey, hdr, dvr, streamLink) VALUES (?,?,?,?,?,?)`;
+    con.query(
+      sql,
+      [title, img, guideKey, hdr, dvr, streamLink],
+      function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+      }
+    );
   });
 });
